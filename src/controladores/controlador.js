@@ -1,13 +1,11 @@
-import express from 'express';
+import express from "express";
 import fs from "fs";
-import bodyParser from "body-parser";
 
 const app = express();
-app.use(bodyParser.json());
 
 const leerDatos = () => {
     try{
-        const datos = fs.readFileSync("./db.json");
+        const datos = fs.readFileSync("./src/database/db.json");
         return JSON.parse(datos);
     }
     catch(error){
@@ -17,7 +15,7 @@ const leerDatos = () => {
 
 const crearDatos = (datos) => {
     try{
-        fs.writeFileSync("./db.json", JSON.stringify(datos));
+        fs.writeFileSync("./src/database/db.json", JSON.stringify(datos));
     }
     catch(error){
         console.log(error)
@@ -75,7 +73,4 @@ app.delete("/publicaciones/:id", (req, res) => {
     res.json({message: "Se borro."})
 });
 
-app.listen(3000, () => {
-    console.log("Corriendo en el puerto 3000");
-   
-});
+export default app;
